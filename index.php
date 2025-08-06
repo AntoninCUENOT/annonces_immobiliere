@@ -120,11 +120,30 @@ include_once './templates/header.php';
 
 switch ($page) {
     case 'login':
-        include_once "./config/pages/login.php";
+        if(isset($_SESSION['mail'])) {
+            header("Location: ?page=dashboard");
+        } else {
+            include_once "./config/pages/login.php";
+        }
+        
         break;
 
     case 'register':
         include_once "./config/pages/register.php";
+        break;
+
+    case 'add':
+        if(isset($_SESSION['mail'])) {
+            include_once "./config/pages/add.php";
+        } else {
+            header("Location: ?page=dashboard");
+        }
+        break;
+
+    case 'logout':
+        session_destroy();
+        header("Location: ?page=dashboard");
+        exit();
         break;
 
     default:
@@ -134,4 +153,3 @@ switch ($page) {
 
 include_once './templates/footer.php';
 require_once "./templates/footer.php";
-?>

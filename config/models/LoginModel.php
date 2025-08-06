@@ -1,4 +1,5 @@
 <?php
+
 namespace Models;
 
 class LoginModel
@@ -14,7 +15,12 @@ class LoginModel
 
     public function isValid(): bool
     {
-        return !empty($this->email) && !empty($this->password);
+        if ($this->email === 'admin@admin' && $this->password === 'admin') {
+            $_SESSION['mail'] = $this->email;
+            return !empty($this->email) && !empty($this->password);
+        }
+
+        return false;
     }
 
     public function getData(): array

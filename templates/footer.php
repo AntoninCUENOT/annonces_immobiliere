@@ -1,6 +1,6 @@
 <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="container-footer">
             <div class="footer-grid">
                 <div class="footer-section">
                     <h3><?php echo $site_name; ?></h3>
