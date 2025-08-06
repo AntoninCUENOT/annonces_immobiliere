@@ -108,6 +108,6 @@ $stats = [
     'satisfied_clients' => 8942
 ];
 ?>
-<?php require_once "./includes/header.php" ?>
-<?php include_once "./includes/main.php" ?>
-<?php require_once "./includes/footer.php" ?>
+<?php require_once "./templates/header.php" ?>
+<?php include_once "./templates/main.php" ?>
+<?php require_once "./templates/footer.php" ?>
