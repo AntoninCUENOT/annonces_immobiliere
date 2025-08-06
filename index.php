@@ -1,6 +1,8 @@
 <?php
+session_start();
+
 // Configuration de base
-$site_name = "ImmoPlus";
+$site_name = "Find My Dream Home";
 $site_slogan = "Trouvez votre bien immobilier idéal";
 
 // Tableau des maisons
@@ -107,7 +109,29 @@ $stats = [
     'cities' => 156,
     'satisfied_clients' => 8942
 ];
+
+require_once "./templates/header.php";
+
+// Définir la page demandée, par défaut "login"
+$page = $_GET['page'] ?? '';
+
+// Inclure les templates globaux
+include_once './templates/header.php';
+
+switch ($page) {
+    case 'login':
+        include_once "./config/pages/login.php";
+        break;
+
+    case 'register':
+        include_once "./config/pages/register.php";
+        break;
+
+    default:
+        include_once "./templates/main.php";
+        break;
+}
+
+include_once './templates/footer.php';
+require_once "./templates/footer.php";
 ?>
-<?php require_once "./templates/header.php" ?>
-<?php include_once "./templates/main.php" ?>
-<?php require_once "./templates/footer.php" ?>

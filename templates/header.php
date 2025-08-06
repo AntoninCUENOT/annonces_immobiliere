@@ -16,7 +16,7 @@
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="?page=''">Accueil</a></li>
                     <li><a href="#acheter">Acheter</a></li>
                     <li><a href="#louer">Louer</a></li>
                     <li><a href="#vendre">Vendre</a></li>
@@ -24,8 +24,8 @@
                 </ul>
             </nav>
             <div class="nav-actions">
-                <a href="#" class="btn btn-secondary">Connexion</a>
-                <a href="#" class="btn btn-primary">Inscription</a>
+                <a href="?page=login" class="btn btn-secondary">Connexion</a>
+                <a href="?page=register" class="btn btn-primary">Inscription</a>
             </div>
         </div>
     </header>

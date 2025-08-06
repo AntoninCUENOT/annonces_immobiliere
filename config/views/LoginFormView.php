@@ -20,7 +20,7 @@ class LoginFormView
                 <button type="submit" style="width: 100%; margin-top:15px;">Se connecter</button>
             </form>
             <p style="text-align:center; margin-top:10px;">
-                <a href="register.php">Pas encore de compte ? Inscrivez-vous</a>
+                <a href="?page=register">Pas encore de compte ? Inscrivez-vous</a>
             </p>
         </div>
         <?php

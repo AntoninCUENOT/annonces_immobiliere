@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Redirection pour l'accès à 'register'
+RewriteRule ^register$ index.php?action=register [L,QSA]
+
+# Redirection pour l'accès à 'connexion'
+RewriteRule ^login$ index.php?action=login [L,QSA]

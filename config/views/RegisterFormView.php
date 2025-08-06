@@ -24,7 +24,7 @@ class RegisterFormView
                 <button type="submit" style="width: 100%; margin-top:15px;">S'inscrire</button>
             </form>
             <p style="text-align:center; margin-top:10px;">
-                <a href="login.php">Déjà inscrit ? Connectez-vous</a>
+                <a href="?page=login">Déjà inscrit ? Connectez-vous</a>
             </p>
         </div>
         <?php
