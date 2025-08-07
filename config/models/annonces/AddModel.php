@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Annonces;
 
-require_once __DIR__ . '/../database/Database.php';
+require_once __DIR__ . '/../../database/Database.php';
 
 use Config\Database\Database;
 use PDO;

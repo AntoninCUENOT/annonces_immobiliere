@@ -26,13 +26,20 @@
                 </ul>
             </nav>
             <div class="nav-actions">
-                <?php if(isset($_SESSION['mail'])) { ?>
-                    <a href="?page=logout" class="btn btn-primary">Deconnexion</a>
-                    <a href="?page=add" class="btn btn-add">Add</a>
-                <?php } else { ?>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <a href="?page=logout" class="btn btn-primary">Déconnexion</a>
+
+                    <?php if (
+                        isset($_SESSION['role']) &&
+                        ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'agent')
+                    ): ?>
+                        <a href="?page=annonces" class="btn btn-annonces">Annonces</a>
+                    <?php endif; ?>
+
+                <?php else: ?>
                     <a href="?page=login" class="btn btn-secondary">Connexion</a>
                     <a href="?page=register" class="btn btn-primary">Inscription</a>
-                <?php } ?>
+                <?php endif; ?>
             </div>
         </div>
     </header>

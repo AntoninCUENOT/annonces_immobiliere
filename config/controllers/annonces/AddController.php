@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Annonces;
 
-use App\Models\AddModel;
-use App\Views\AddFormView;
+require_once __DIR__ . "/../Auth.php";
+
+use App\Models\Annonces\AddModel;
+use App\Views\Annonces\AddFormView;
+use Config\Auth;
 
 class AddController
 {
     public function handleRequest(): void
     {
+        // Vérifie l'autorisation AVANT toute autre logique
+        Auth::checkAccess(['agent', 'admin']);
+
         $model = new AddModel();
         $result = [];
 
@@ -16,7 +22,6 @@ class AddController
             $result = $model->validateForm($_POST);
 
             if ($result['success']) {
-                
                 $_POST = [];
             }
         }

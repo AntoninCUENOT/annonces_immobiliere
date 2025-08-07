@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views;
+namespace App\Views\Annonces;
 
 class AddFormView
 {
@@ -68,7 +68,7 @@ class AddFormView
                 <button type="submit">Enregistrer</button>
             </form>
 
-            <a href="./">Retour à l'accueil</a>
+            <a href="?page=annonces" class="btn-retour">Retour aux annonces</a>
         </div>
         <?php
     }

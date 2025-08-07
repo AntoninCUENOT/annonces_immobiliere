@@ -88,13 +88,13 @@ body {
     color: #667eea;
 }
 
-.btn-add {
+.btn-annonces {
     background: transparent;
     color: white;
     border: 2px solid white;
 }
 
-.btn-add:hover {
+.btn-annonces:hover {
     background: white;
     color: #667eea;
 }
@@ -515,6 +515,89 @@ button[type="submit"]:hover {
 
 .alert-danger ul {
     padding-left: 1.25rem;
+}
+
+.annonce-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.annonce-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.annonce-table th,
+.annonce-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.annonce-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.annonce-table td:last-child {
+    white-space: nowrap;
+}
+
+/* Boutons d'action */
+.btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Bouton ajouter une annonce */
+.btn-add {
+    display: inline-block;
+    margin: 1rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-add:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+}
+
+.btn-retour {
+    display: inline-block;
+    margin: 1rem 0;
+    background: linear-gradient(135deg, #5ff879 0%, #0b4421 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
 }
 
 /* Animations */

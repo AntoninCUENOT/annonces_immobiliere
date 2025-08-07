@@ -115,12 +115,10 @@ require_once "./templates/header.php";
 // Définir la page demandée, par défaut "login"
 $page = $_GET['page'] ?? '';
 
-// Inclure les templates globaux
-include_once './templates/header.php';
 
 switch ($page) {
     case 'login':
-        if (isset($_SESSION['mail'])) {
+        if (isset($_SESSION['user'])) {
             header("Location: ?page=dashboard");
         } else {
             include_once "./config/pages/login.php";
@@ -132,23 +130,30 @@ switch ($page) {
         include_once "./config/pages/register.php";
         break;
 
+    case 'annonces':
+        include_once './config/pages/annonces/list.php';
+        break;
+
+    case 'delete':
+        include_once "./config/pages/annonces/delete.php";
+        break;
+
+    case 'edit':
+        include_once "./config/pages/annonces/edit.php";
+        break;
+
     case 'add':
-        if (isset($_SESSION['mail'])) {
-            include_once "./config/pages/add.php";
-        } else {
-            header("Location: ?page=dashboard");
-        }
+        include_once "./config/pages/annonces/add.php";
         break;
 
     case 'logout':
         session_destroy();
         header("Location: ?page=dashboard");
         exit();
-        
+
     default:
         include_once "./config/pages/listings.php";
         break;
 }
 
-include_once './templates/footer.php';
 require_once "./templates/footer.php";

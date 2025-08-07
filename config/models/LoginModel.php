@@ -34,8 +34,9 @@ class LoginModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($this->password, $user['password'])) {
-            $_SESSION['mail'] = $user['email'];
+            $_SESSION['user'] = $user['email'];
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role'] = $user['role'];
             return true;
         }
 
