@@ -144,8 +144,7 @@ switch ($page) {
         session_destroy();
         header("Location: ?page=dashboard");
         exit();
-        break;
-
+        
     default:
         include_once "./config/pages/listings.php";
         break;

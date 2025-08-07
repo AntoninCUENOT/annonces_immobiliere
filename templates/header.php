@@ -27,7 +27,7 @@
             </nav>
             <div class="nav-actions">
                 <?php if(isset($_SESSION['mail'])) { ?>
-                    <a href="?page=logout" class="btn btn-secondary">Deconnexion</a>
+                    <a href="?page=logout" class="btn btn-primary">Deconnexion</a>
                     <a href="?page=add" class="btn btn-add">Add</a>
                 <?php } else { ?>
                     <a href="?page=login" class="btn btn-secondary">Connexion</a>

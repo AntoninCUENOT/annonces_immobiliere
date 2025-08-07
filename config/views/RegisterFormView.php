@@ -3,11 +3,18 @@ namespace Views;
 
 class RegisterFormView
 {
-    public function render(): void
+    public function render(string $message = ''): void
     {
         ?>
         <div style="width: 300px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 6px; background: white;">
             <h2 style="text-align: center;">Créer un compte sur Find My Dream Home</h2>
+
+            <?php if (!empty($message)): ?>
+                <div style="margin-bottom: 10px; padding: 10px; background-color: #f8d7da; color: #721c24; border-radius: 4px;">
+                    <?= $message ?>
+                </div>
+            <?php endif; ?>
+
             <form method="POST" action="">
                 <div>
                     <label>Email</label><br>

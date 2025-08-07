@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use Models\RegisterModel;
@@ -8,19 +9,21 @@ class RegisterController
 {
     public function handleRequest(): void
     {
+        $message = '';
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $model = new RegisterModel($_POST);
-            if ($model->isValid()) {
-                $data = $model->getData();
-                echo "<pre>Inscription réussie (données reçues) :\n";
-                print_r($data);
-                echo "</pre>";
+
+            if ($model->register()) {               
+                header("Location: ?page=login");
+                $message = "<p style='color:green; text-align:center;'>Inscription réussie ! Vous pouvez maintenant vous connecter.</p>";
+                exit;
             } else {
-                echo "<p style='color:red; text-align:center;'>Vérifiez les champs et la confirmation du mot de passe.</p>";
+                $message = "<p style='color:red; text-align:center;'>Email déjà utilisé ou champs invalides.</p>";
             }
         }
 
         $view = new RegisterFormView();
-        $view->render();
+        $view->render($message);
     }
 }

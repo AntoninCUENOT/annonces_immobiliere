@@ -4,7 +4,7 @@ namespace App\Views;
 
 class AddFormView
 {
-    public function render(array $result = []): void
+    public function render(array $result = [], array $propertyTypes = [], array $transactionTypes = []): void
     {
         ?>
         <div class="container">
@@ -47,16 +47,22 @@ class AddFormView
                     <label>Type de transaction</label>
                     <select name="transactionType" required>
                         <option value="">-- Sélectionner --</option>
-                        <option value="Rent">Location</option>
-                        <option value="Sale">Vente</option>
+                        <?php foreach ($transactionTypes as $type): ?>
+                            <option value="<?= htmlspecialchars($type['id']) ?>">
+                                <?= htmlspecialchars($type['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div>
                     <label>Type de bien</label>
                     <select name="propertyType" required>
                         <option value="">-- Sélectionner --</option>
-                        <option value="House">Maison</option>
-                        <option value="Apartment">Appartement</option>
+                        <?php foreach ($propertyTypes as $type): ?>
+                            <option value="<?= htmlspecialchars($type['id']) ?>">
+                                <?= htmlspecialchars($type['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <button type="submit">Enregistrer</button>

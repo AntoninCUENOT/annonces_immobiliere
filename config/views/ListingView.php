@@ -6,7 +6,7 @@ class ListingView
 {
     public function render(array $listings): void
     {
-        echo '<h2 style="text-align:center;">Liste des annonces</h2>';
+        echo '<h2 style="text-align:center;">Liste des ' . $_GET['page'] . '</h2>';
         echo '<div style="display: flex; flex-wrap: wrap; justify-content: center;">';
 
         foreach ($listings as $listing) {
@@ -26,14 +26,14 @@ class ListingView
 
     public function renderSeparated(array $maisons, array $appartements): void
     {
-        echo '<h2 style="text-align:center;">Maisons</h2>';
+        echo '<a href="?page=Maisons"><h2 style="text-align:center;">Maisons</h2></a>';
         echo '<div style="display: flex; flex-wrap: wrap; justify-content: center;">';
         foreach ($maisons as $listing) {
             $this->renderCard($listing);
         }
         echo '</div>';
 
-        echo '<h2 style="text-align:center; margin-top: 40px;">Appartements</h2>';
+        echo '<a href="?page=Appartements"><h2 style="text-align:center; margin-top: 40px;">Appartements</h2></a>';
         echo '<div style="display: flex; flex-wrap: wrap; justify-content: center;">';
         foreach ($appartements as $listing) {
             $this->renderCard($listing);

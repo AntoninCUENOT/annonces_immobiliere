@@ -16,24 +16,8 @@ class ListingModel
         $this->db = Database::getConnection();
     }
 
-    public function getAllListings(): array
-    {
-        $sql = "
-            SELECT 
-                l.id, l.title, l.description, l.price, l.city, l.image_url,
-                pt.name AS property_type,
-                tt.name AS transaction_type
-            FROM listing l
-            JOIN propertyType pt ON l.property_type_id = pt.id
-            JOIN transactionType tt ON l.transaction_type_id = tt.id
-            ORDER BY l.created_at DESC
-        ";
 
-        $stmt = $this->db->query($sql);
-        return $stmt->fetchAll();
-    }
-
-    public function getListingsByPropertyType(int $propertyTypeId): array
+    public function getListingsByPropertyType(int $propertyTypeId, ?int $limit = null): array
 {
     $sql = "
         SELECT 
@@ -47,9 +31,20 @@ class ListingModel
         ORDER BY l.created_at DESC
     ";
 
+    if ($limit !== null) {
+        $sql .= " LIMIT :limit";
+    }
+
     $stmt = $this->db->prepare($sql);
-    $stmt->execute(['typeId' => $propertyTypeId]);
+    $stmt->bindValue(':typeId', $propertyTypeId, PDO::PARAM_INT);
+
+    if ($limit !== null) {
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    }
+
+    $stmt->execute();
     return $stmt->fetchAll();
 }
+
 
 }

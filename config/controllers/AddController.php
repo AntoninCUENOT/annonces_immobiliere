@@ -10,14 +10,22 @@ class AddController
     public function handleRequest(): void
     {
         $model = new AddModel();
+        $result = [];
 
-        $formSubmitted = ($_SERVER['REQUEST_METHOD'] === 'POST');
-
-        if ($formSubmitted) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $model->validateForm($_POST);
+
+            if ($result['success']) {
+                
+                $_POST = [];
+            }
         }
 
+        // Récupérer les types dynamiquement depuis le modèle
+        $propertyTypes = $model->getPropertyTypes();
+        $transactionTypes = $model->getTransactionTypes();
+
         $view = new AddFormView();
-        $view->render(isset($result) ? $result : []);
+        $view->render($result, $propertyTypes, $transactionTypes);
     }
 }
