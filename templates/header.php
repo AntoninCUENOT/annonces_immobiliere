@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $site_name; ?> - <?php echo $site_slogan; ?></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/style/style.css">
+    <base href="http://localhost:8008/">
+    <link rel="stylesheet" href="assets/style/style.css">
 </head>
 
 <body>
@@ -21,13 +22,13 @@
                     <li><a href="?page=''">Accueil</a></li>
                     <li><a href="#acheter">Acheter</a></li>
                     <li><a href="#louer">Louer</a></li>
-                    <li><a href="#vendre">Vendre</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <div class="nav-actions">
                 <?php if (isset($_SESSION['user'])): ?>
                     <a href="?page=logout" class="btn btn-primary">Déconnexion</a>
+                    <a href="?page=favorite" class="btn btn-favoris">Favoris</a>
 
                     <?php if (
                         isset($_SESSION['role']) &&

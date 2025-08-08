@@ -2,6 +2,8 @@
 
 namespace Config\Views;
 
+require_once __DIR__ . '/../models/FavoriteModel.php';
+
 class ListingView
 {
     public function render(array $listings): void
@@ -43,6 +45,13 @@ class ListingView
 
     private function renderCard(array $listing): void
     {
+        $isFavorite = false;
+
+        if (isset($_SESSION['user_id'])) {
+            $favoriteModel = new \Models\FavoriteModel();
+            $isFavorite = $favoriteModel->isFavorite($_SESSION['user_id'], $listing['id']);
+        }
+
         echo '<div style="border: 1px solid #ccc; margin: 10px; padding: 10px; width: 300px;">';
         echo '<h3>' . htmlspecialchars($listing['title']) . '</h3>';
         echo '<img src="./' . htmlspecialchars($listing['image_url']) . '" alt="Image" style="width:100%; height:auto;">';
@@ -51,6 +60,19 @@ class ListingView
         echo '<p><strong>Type de bien:</strong> ' . htmlspecialchars($listing['property_type']) . '</p>';
         echo '<p><strong>Transaction:</strong> ' . htmlspecialchars($listing['transaction_type']) . '</p>';
         echo '<p>' . nl2br(htmlspecialchars($listing['description'])) . '</p>';
+
+        if (isset($_SESSION['user_id'])) {
+            if ($isFavorite) {
+                echo '<form class="fav-form" action="?page=favorite_remove&id=' . $listing['id'] . '" method="post">';
+                echo '<button class="fav-btn" type="submit">❤️</button>';
+                echo '</form>';
+            } else {
+                echo '<form class="fav-form" action="?page=favorite_add&id=' . $listing['id'] . '" method="post">';
+                echo '<button class="fav-btn" type="submit">🤍</button>';
+                echo '</form>';
+            }
+        }
+
         echo '</div>';
     }
 }

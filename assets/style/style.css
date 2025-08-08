@@ -600,6 +600,26 @@ button[type="submit"]:hover {
     transition: background 0.3s, transform 0.2s;
 }
 
+.btn-favoris {
+    display: inline-block;
+    background: linear-gradient(135deg, #5ff879 0%, #0b4421 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.fav-btn {
+    background: white!important;
+    font-size: 1.5rem;
+}
+
+.fav-form {
+    display: flex;
+    justify-content: flex-end;
+}
 /* Animations */
 @keyframes fadeInUp {
     from {

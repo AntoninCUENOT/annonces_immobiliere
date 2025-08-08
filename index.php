@@ -146,6 +146,18 @@ switch ($page) {
         include_once "./config/pages/annonces/add.php";
         break;
 
+    case 'favorite':
+        include_once './config/pages/favorite/favorite.php';
+        break;
+
+    case 'favorite_add':
+        include_once './config/pages/favorite/favoriteAdd.php';
+        break;
+
+    case 'favorite_remove':
+        include_once './config/pages/favorite/favoriteRemove.php';
+        break;
+
     case 'logout':
         session_destroy();
         header("Location: ?page=dashboard");
