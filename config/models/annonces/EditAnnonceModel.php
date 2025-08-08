@@ -26,30 +26,33 @@ class EditAnnonceModel
 
     public function updateAnnonce(int $id, array $data): bool
     {
-        $stmt = $this->db->prepare("
-            UPDATE listing SET
-                title = :title,
-                description = :description,
-                price = :price,
-                city = :city,
-                image_url = :image_url,
-                property_type_id = :property_type_id,
-                transaction_type_id = :transaction_type_id
-            WHERE id = :id
-        ");
+        $existing = $this->getAnnonceById($id);
+        if (!$existing) {
+            return false;
+        }
 
-        return $stmt->execute([
-            'id' => $id,
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'price' => $data['price'],
-            'city' => $data['city'],
-            'image_url' => $data['image_url'],
-            'property_type_id' => $data['property_type_id'],
-            'transaction_type_id' => $data['transaction_type_id']
-        ]);
+        $fieldsToUpdate = [];
+        $params = ['id' => $id];
+
+        foreach ($data as $key => $value) {
+            if (!array_key_exists($key, $existing)) {
+                continue;
+            }
+
+            if ($value != $existing[$key]) {
+                $fieldsToUpdate[] = "$key = :$key";
+                $params[$key] = $value;
+            }
+        }
+
+        if (empty($fieldsToUpdate)) {
+            return true;
+        }
+
+        $sql = "UPDATE listing SET " . implode(', ', $fieldsToUpdate) . " WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($params);
     }
-
     public function getPropertyTypes(): array
     {
         $stmt = $this->db->query("SELECT id, name FROM propertyType");
@@ -60,5 +63,9 @@ class EditAnnonceModel
     {
         $stmt = $this->db->query("SELECT id, name FROM transactionType");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getPDO(): PDO
+    {
+        return $this->db;
     }
 }

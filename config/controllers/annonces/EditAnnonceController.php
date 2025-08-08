@@ -6,6 +6,7 @@ require_once __DIR__ . "/../Auth.php";
 
 use Models\EditAnnonceModel;
 use Config\Auth;
+use Exception;
 
 class EditAnnonceController
 {
@@ -16,7 +17,7 @@ class EditAnnonceController
             header("Location: ?page=login");
             exit();
         }
-        // Vérifie l'autorisation AVANT toute autre logique
+
         Auth::checkAccess(['agent', 'admin']);
 
         $role = $_SESSION['role'];
@@ -29,7 +30,6 @@ class EditAnnonceController
         }
 
         $annonceId = (int)$_GET['id'];
-
         $model = new EditAnnonceModel();
         $annonce = $model->getAnnonceById($annonceId);
 
@@ -39,8 +39,7 @@ class EditAnnonceController
             exit();
         }
 
-        // Vérifier les droits
-        if ($role !== 'admin' && ($role === 'agent' && $annonce['user_id'] != $userId)) {
+        if ($role !== 'admin' && $annonce['user_id'] != $userId) {
             $_SESSION['error'] = "Vous n'avez pas les droits pour modifier cette annonce.";
             header("Location: ?page=annonces");
             exit();
@@ -49,24 +48,61 @@ class EditAnnonceController
         $message = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'title' => $_POST['title'] ?? '',
-                'description' => $_POST['description'] ?? '',
-                'price' => $_POST['price'] ?? '',
-                'city' => $_POST['city'] ?? '',
-                'image_url' => $_POST['image_url'] ?? '',
-                'property_type_id' => $_POST['property_type_id'] ?? '',
-                'transaction_type_id' => $_POST['transaction_type_id'] ?? ''
-            ];
+            $db = $model->getPDO(); // Accès direct au PDO pour la transaction
+            try {
+                $db->beginTransaction();
 
-            $updated = $model->updateAnnonce($annonceId, $data);
+                $data = [
+                    'title' => $_POST['title'] ?? '',
+                    'description' => $_POST['description'] ?? '',
+                    'price' => $_POST['price'] ?? '',
+                    'city' => $_POST['city'] ?? '',
+                    'image_url' => $annonce['image_url'], // par défaut
+                    'property_type_id' => $_POST['property_type_id'] ?? '',
+                    'transaction_type_id' => $_POST['transaction_type_id'] ?? ''
+                ];
 
-            if ($updated) {
-                $_SESSION['success'] = "Annonce mise à jour.";
+                if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    $fileTmpPath = $_FILES['image']['tmp_name'];
+                    $fileName = basename($_FILES['image']['name']);
+                    $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+                    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                    if (!in_array($extension, $allowedExtensions)) {
+                        throw new Exception("Format d’image non autorisé.");
+                    }
+
+                    $uploadDir = __DIR__ . "/../../../public/annonces/{$annonceId}/";
+                    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
+                        throw new Exception("Erreur lors de la création du dossier d’upload.");
+                    }
+
+                    $destination = $uploadDir . $fileName;
+
+                    if (!move_uploaded_file($fileTmpPath, $destination)) {
+                        throw new Exception("Échec de l’upload de l’image.");
+                    }
+
+                    $ancienneImagePath = __DIR__ . "/../../../" . $annonce['image_url'];
+                    if (is_file($ancienneImagePath) && $annonce['image_url'] !== "annonces/{$annonceId}/{$fileName}") {
+                        unlink($ancienneImagePath);
+                    }
+
+                    $data['image_url'] = "public/annonces/{$annonceId}/{$fileName}";
+                }
+
+                $success = $model->updateAnnonce($annonceId, $data);
+                if (!$success) {
+                    throw new Exception("Erreur lors de la mise à jour de l’annonce.");
+                }
+
+                $db->commit();
+                $_SESSION['success'] = "Annonce mise à jour avec succès.";
                 header("Location: ?page=annonces");
                 exit();
-            } else {
-                $message = "Erreur lors de la mise à jour.";
+            } catch (Exception $e) {
+                $db->rollBack();
+                $message = $e->getMessage();
             }
         }
 

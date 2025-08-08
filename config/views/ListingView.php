@@ -45,7 +45,7 @@ class ListingView
     {
         echo '<div style="border: 1px solid #ccc; margin: 10px; padding: 10px; width: 300px;">';
         echo '<h3>' . htmlspecialchars($listing['title']) . '</h3>';
-        echo '<img src="' . htmlspecialchars($listing['image_url']) . '" alt="Image" style="width:100%; height:auto;">';
+        echo '<img src="./' . htmlspecialchars($listing['image_url']) . '" alt="Image" style="width:100%; height:auto;">';
         echo '<p><strong>Prix:</strong> ' . number_format($listing['price'], 0, ',', ' ') . ' €</p>';
         echo '<p><strong>Ville:</strong> ' . htmlspecialchars($listing['city']) . '</p>';
         echo '<p><strong>Type de bien:</strong> ' . htmlspecialchars($listing['property_type']) . '</p>';

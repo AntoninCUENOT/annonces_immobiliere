@@ -6,7 +6,7 @@ class AddFormView
 {
     public function render(array $result = [], array $propertyTypes = [], array $transactionTypes = []): void
     {
-        ?>
+?>
         <div class="container">
             <h2>Créer une annonce</h2>
 
@@ -22,10 +22,10 @@ class AddFormView
                 </div>
             <?php endif; ?>
 
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div>
-                    <label>Image URL</label>
-                    <input type="text" name="image" required>
+                    <label for="image">Image</label>
+                    <input type="file" name="image" accept="image/*" required>
                 </div>
                 <div>
                     <label>Titre</label>
@@ -70,6 +70,6 @@ class AddFormView
 
             <a href="?page=annonces" class="btn-retour">Retour aux annonces</a>
         </div>
-        <?php
+<?php
     }
 }

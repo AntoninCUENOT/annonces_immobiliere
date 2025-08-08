@@ -14,7 +14,7 @@ class EditAnnonceView
                 <p style="color: red;"><?= htmlspecialchars($message) ?></p>
             <?php endif; ?>
 
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div>
                     <label>Titre</label>
                     <input type="text" name="title" value="<?= htmlspecialchars($annonce['title']) ?>" required><br>
@@ -33,8 +33,13 @@ class EditAnnonceView
                 </div>
 
                 <div>
-                    <label>Image (URL)</label>
-                    <input type="text" name="image_url" value="<?= htmlspecialchars($annonce['image_url']) ?>"><br>
+                    <label>Image actuelle :</label><br>
+                    <?php if ($annonce['image_url']): ?>
+                        <img src="./<?= htmlspecialchars($annonce['image_url']) ?>" alt="Image actuelle" style="max-width: 200px;"><br>
+                    <?php endif; ?>
+
+                    <label>Changer l'image :</label>
+                    <input type="file" name="image" accept=".jpg,.jpeg,.png,.gif"><br>
                 </div>
 
                 <div>
