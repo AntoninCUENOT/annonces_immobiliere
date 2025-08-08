@@ -35,7 +35,7 @@ class EditAnnonceView
                 <div>
                     <label>Image actuelle :</label><br>
                     <?php if ($annonce['image_url']): ?>
-                        <img src="./<?= htmlspecialchars($annonce['image_url']) ?>" alt="Image actuelle" style="max-width: 200px;"><br>
+                        <img src="<?= htmlspecialchars($annonce['image_url']) ?>" alt="Image actuelle" style="max-width: 200px;"><br>
                     <?php endif; ?>
 
                     <label>Changer l'image :</label>

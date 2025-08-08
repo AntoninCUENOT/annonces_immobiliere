@@ -75,7 +75,7 @@ class AddModel
                 throw new \Exception("Erreur lors de l’upload de l’image.");
             }
 
-            $relativePath = 'public/annonces/' . $listingId . '/' . $safeName;
+            $relativePath = './public/annonces/' . $listingId . '/' . $safeName;
 
             // Étape 3 : mise à jour de image_url
             $updateStmt = $db->prepare("UPDATE listing SET image_url = :image_url WHERE id = :id");

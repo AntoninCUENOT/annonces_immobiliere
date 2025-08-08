@@ -88,7 +88,7 @@ class EditAnnonceController
                         unlink($ancienneImagePath);
                     }
 
-                    $data['image_url'] = "public/annonces/{$annonceId}/{$fileName}";
+                    $data['image_url'] = "./public/annonces/{$annonceId}/{$fileName}";
                 }
 
                 $success = $model->updateAnnonce($annonceId, $data);

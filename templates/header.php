@@ -22,7 +22,6 @@
                     <li><a href="?page=''">Accueil</a></li>
                     <li><a href="#acheter">Acheter</a></li>
                     <li><a href="#louer">Louer</a></li>
-                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <div class="nav-actions">
